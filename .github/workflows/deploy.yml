@@ -1,0 +1,61 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Выкладки идут по очереди: две одновременные перепутали бы web.prev.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Typecheck and build
+        run: |
+          npm ci
+          npm run build
+
+      # Ключ хоста — из секрета (ssh-keyscan -H <host> один раз), а не принимается вслепую на каждом прогоне.
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Upload frontend
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519" \
+            dist/ "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/opt/navecher/web.new/"
+
+      # Переключение, проверка, что главная и её скрипт отдаются, и откат на прошлую версию, если нет.
+      # Сервис не перезапускается: Go-сервер (navecher-api) читает файлы с диска на каждый запрос.
+      - name: Activate, health check, rollback
+        run: |
+          ssh -i ~/.ssh/id_ed25519 "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" '
+            set -e
+            cd /opt/navecher
+            chmod -R g+rX web.new
+            rm -rf web.prev
+            if [ -d web ]; then mv web web.prev; fi
+            mv web.new web
+            for i in $(seq 1 10); do
+              js=$(curl -fsS http://127.0.0.1:8080/ | grep -o "/assets/[^\"]*\.js" | head -1 || true)
+              if [ -n "$js" ] && curl -fsS -o /dev/null "http://127.0.0.1:8080$js"; then echo "healthy"; exit 0; fi
+              sleep 1
+            done
+            echo "health check failed — rolling back"
+            if [ -d web.prev ]; then rm -rf web; mv web.prev web; fi
+            exit 1
+          '
