@@ -1,4 +1,4 @@
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './StepProgress.module.css'
 
 type StepProgressProps = { step: number; total: number }

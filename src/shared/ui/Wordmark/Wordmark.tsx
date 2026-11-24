@@ -1,4 +1,4 @@
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './Wordmark.module.css'
 
 type WordmarkProps = { size?: 'm' | 'l'; className?: string }

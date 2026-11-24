@@ -1,22 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { RequireAuth } from '@/features/auth'
-import { ChatPage } from '@/pages/chats/ChatPage'
-import { ChatsPage } from '@/pages/chats/ChatsPage'
-import { DealPage } from '@/pages/deal/DealPage'
-import { ErrorPage } from '@/pages/error/ErrorPage'
-import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
-import { FeedPage } from '@/pages/feed/FeedPage'
-import { FiltersPage } from '@/pages/filters/FiltersPage'
-import { ItemCalendarPage } from '@/pages/item/ItemCalendarPage'
-import { ItemPage } from '@/pages/item/ItemPage'
-import { ItemRequestPage } from '@/pages/item/ItemRequestPage'
-import { LoginPage } from '@/pages/login/LoginPage'
-import { NotFoundPage } from '@/pages/not-found/NotFoundPage'
-import { PlaceDetailsPage } from '@/pages/place/PlaceDetailsPage'
-import { PlacePhotosPage } from '@/pages/place/PlacePhotosPage'
-import { ProfilePage } from '@/pages/profile/ProfilePage'
-import { RulesPage } from '@/pages/rules/RulesPage'
-import { OwnerRequestPage } from '@/pages/request/OwnerRequestPage'
+import { ChatPage, ChatsPage } from '@/pages/chats'
+import { DealPage } from '@/pages/deal'
+import { ErrorPage } from '@/pages/error'
+import { FavoritesPage } from '@/pages/favorites'
+import { FeedPage } from '@/pages/feed'
+import { FiltersPage } from '@/pages/filters'
+import { ItemCalendarPage, ItemPage, ItemRequestPage } from '@/pages/item'
+import { LoginPage } from '@/pages/login'
+import { NotFoundPage } from '@/pages/not-found'
+import { PlaceDetailsPage, PlacePhotosPage } from '@/pages/place'
+import { ProfilePage } from '@/pages/profile'
+import { OwnerRequestPage } from '@/pages/request'
+import { RulesPage } from '@/pages/rules'
+import { ROUTER_FUTURE } from '@/shared/lib/routerFuture'
 import { AppShell } from './layouts/AppShell'
 import { TabLayout } from './layouts/TabLayout'
 
@@ -61,13 +58,5 @@ export const router = createBrowserRouter(
       ],
     },
   ],
-  {
-    future: {
-      v7_relativeSplatPath: true,
-      v7_fetcherPersist: true,
-      v7_normalizeFormMethod: true,
-      v7_partialHydration: true,
-      v7_skipActionErrorRevalidation: true,
-    },
-  },
+  { future: ROUTER_FUTURE },
 )

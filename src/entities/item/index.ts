@@ -1,7 +1,9 @@
-export { useItem } from './api/useItem'
-export { useAvailability } from './api/useAvailability'
-export { useItemsFeed, FEED_PAGE_SIZE, type ItemsFeed } from './api/useItemsFeed'
-export { useItemsTotal } from './api/useItemsTotal'
+export { fetchItems, fetchItemsTotal, fetchItem, fetchAvailability } from './api/api'
+export { itemKeys } from './api/keys'
+export { useItem } from './model/useItem'
+export { useAvailability } from './model/useAvailability'
+export { useItemsFeed, FEED_PAGE_SIZE, type ItemsFeed } from './model/useItemsFeed'
+export { useItemsTotal } from './model/useItemsTotal'
 export {
   itemTitle,
   itemFacts,

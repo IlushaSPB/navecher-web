@@ -1,67 +1,31 @@
-// Типы ответов API (navecher-api).
+// Типы ответов API. Источник правды — navecher-api/api/openapi.yaml:
+// schema.gen.ts генерирует `npm run api:types` (руками не править), здесь — короткие имена для кода.
+import type { components } from './schema.gen'
 
-export type Category = { id: string; label: string; count: number }
-export type Size = { id: string; count: number }
+type S = components['schemas']
 
-export type SiteConfig = {
-  brand: string
-  city: string
-  botUsername: string
-  channelUrl: string
-  categories: Category[]
-  sizes: Size[]
-  total: number
-  minRent: number
-  metrikaId: string
-  demo: boolean
-  devAuth: boolean
-  colors: ColorOption[]
-  sizesAll: string[]
-  priceMaxBound: number
-  today: string // YYYY-MM-DD по времени сервиса
-}
+export type Category = S['Category']
+export type Size = S['SizeCount']
+export type ColorOption = S['Color']
+export type SiteConfig = S['Config']
 
-export type User = {
-  id: number
-  tgId: number
-  username: string
-  firstName: string
-  lastName: string
-  photoUrl: string
-  approved: boolean
-}
-
-export type Session = { token: string; user: User }
-
+export type User = S['User']
+export type Session = S['Login']
 // Пользователь из Telegram Login Widget — отправляется на сервер как есть, сервер проверяет hash.
-export type TelegramWidgetUser = {
-  id: number
-  first_name: string
-  last_name?: string
-  username?: string
-  photo_url?: string
-  auth_date: number
-  hash: string
-}
-
-// Каталог
-
-export type ColorOption = { id: string; label: string; hex: string }
+export type TelegramWidgetUser = S['WidgetUser']
 
 // ItemPreview — платье в ленте. photo — адрес обложки, пусто — фото нет.
-export type ItemPreview = {
-  id: number
-  title: string
-  brand: string
-  size: string
-  color: string
-  priceRent: number
-  photo: string
-  photosCount: number
-  demo: boolean
-}
-
-export type ItemsPage = { total: number; items: ItemPreview[] }
+export type ItemPreview = S['ItemCard']
+export type ItemsPage = S['ItemsPage']
+export type ItemColor = S['ItemColor']
+export type ItemCondition = S['ItemDetail']['condition']
+// Measurements — замеры в сантиметрах; если чисел нет, text — как написала владелица.
+export type Measurements = S['Measurements']
+export type ItemOwner = S['Owner']
+// Item — карточка платья целиком.
+export type Item = S['ItemDetail']
+// Availability — занятые вечера платья за месяц.
+export type Availability = S['Availability']
 
 // ItemsQuery — фильтры ленты; пустые не отправляются. date — YYYY-MM-DD, не раньше сегодня.
 export type ItemsQuery = {
@@ -72,42 +36,3 @@ export type ItemsQuery = {
   limit?: number
   offset?: number
 }
-
-export type ItemCondition = '' | 'new_tag' | 'worn_few' | 'has_flaws'
-
-// Measurements — замеры в сантиметрах; если чисел нет, text — как написала владелица.
-export type Measurements = {
-  bust: number | null
-  waist: number | null
-  hips: number | null
-  length: number | null
-  text: string
-}
-
-export type ItemOwner = { displayName: string; rating: number | null; rentals: number }
-
-// Item — карточка платья целиком.
-export type Item = {
-  id: number
-  title: string
-  brand: string
-  category: string
-  categoryLabel: string
-  size: string
-  color: string
-  condition: ItemCondition
-  timesWorn: number
-  rentals: number
-  priceRent: number
-  priceRetail: number
-  deposit: number
-  measurements: Measurements
-  notes: string
-  metro: string
-  photos: string[]
-  demo: boolean
-  owner: ItemOwner
-}
-
-// Availability — занятые вечера платья за месяц.
-export type Availability = { month: string; today: string; busy: string[] }

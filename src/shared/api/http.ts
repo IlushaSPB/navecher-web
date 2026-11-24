@@ -1,4 +1,5 @@
-import { ApiError, NetworkError } from './errors'
+import { NetworkError } from './errors'
+import { toApiError } from './parseError'
 import { tokenStore } from './token'
 
 type Query = Record<string, string | number | undefined>
@@ -12,13 +13,12 @@ export type RequestOptions = {
 
 type HttpDeps = { getToken: () => string | null }
 
+// Адрес запроса — абсолютный от текущей страницы (так его понимает и fetch в тестах).
 // Пустые значения в query не отправляем: category= и size= сервер понимает как «все».
-function withQuery(path: string, query?: Query) {
-  if (!query) return path
-  const q = new URLSearchParams()
-  for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '') q.set(k, String(v))
-  const s = q.toString()
-  return s ? `${path}?${s}` : path
+function buildUrl(path: string, query?: Query) {
+  const url = new URL(path, window.location.href)
+  for (const [k, v] of Object.entries(query ?? {})) if (v !== undefined && v !== '') url.searchParams.set(k, String(v))
+  return url.href
 }
 
 async function readBody(res: Response): Promise<unknown> {
@@ -26,18 +26,18 @@ async function readBody(res: Response): Promise<unknown> {
   const text = await res.text()
   if (!text) return undefined
   try {
-    return JSON.parse(text)
+    return JSON.parse(text) as unknown
   } catch {
     return text
   }
 }
 
-const errorText = (body: unknown, status: number) =>
-  body && typeof body === 'object' && 'error' in body && typeof body.error === 'string' ? body.error : `HTTP ${status}`
-
 // createHttpClient — JSON поверх fetch: cookie сессии, Bearer-токен, типизированные ошибки.
 export function createHttpClient({ getToken }: HttpDeps) {
-  return async function request<T>(path: string, { method = 'GET', body, query, signal }: RequestOptions = {}): Promise<T> {
+  return async function request<T>(
+    path: string,
+    { method = 'GET', body, query, signal }: RequestOptions = {},
+  ): Promise<T> {
     const headers: Record<string, string> = { Accept: 'application/json' }
     if (body !== undefined) headers['Content-Type'] = 'application/json'
     const token = getToken()
@@ -45,7 +45,7 @@ export function createHttpClient({ getToken }: HttpDeps) {
 
     let res: Response
     try {
-      res = await fetch(withQuery(path, query), {
+      res = await fetch(buildUrl(path, query), {
         method,
         headers,
         body: body === undefined ? undefined : JSON.stringify(body),
@@ -58,7 +58,7 @@ export function createHttpClient({ getToken }: HttpDeps) {
     }
 
     const data = await readBody(res)
-    if (!res.ok) throw new ApiError(res.status, errorText(data, res.status), data)
+    if (!res.ok) throw toApiError(res.status, data)
     return data as T
   }
 }

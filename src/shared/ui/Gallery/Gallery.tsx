@@ -1,5 +1,5 @@
 import { useState, type UIEvent } from 'react'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import { Photo, PhotoStrokes } from '../Photo/Photo'
 import s from './Gallery.module.css'
 

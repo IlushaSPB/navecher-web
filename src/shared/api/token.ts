@@ -1,4 +1,4 @@
-import { readStorage, writeStorage } from '../lib/storage'
+import { readStorage, writeStorage } from '@/shared/lib/storage'
 
 // Токен сессии: в памяти и в localStorage, чтобы пережить перезагрузку.
 const KEY = 'nv_token'

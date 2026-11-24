@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './TextLink.module.css'
 
 type Tone = 'ink' | 'muted'
@@ -18,11 +18,22 @@ export function TextLink({ tone = 'ink', caps = false, className, ...rest }: Sty
 }
 
 // TextAnchor — то же для обычной ссылки: внешний адрес или «#».
-export function TextAnchor({ tone = 'ink', caps = false, className, ...rest }: StyleProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
+export function TextAnchor({
+  tone = 'ink',
+  caps = false,
+  className,
+  ...rest
+}: StyleProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
   return <a className={linkClass(tone, caps, className)} {...rest} />
 }
 
 // TextButton — второстепенное действие подчёркнутым текстом («Сбросить», «Выйти»).
-export function TextButton({ tone = 'ink', caps = false, className, type = 'button', ...rest }: StyleProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+export function TextButton({
+  tone = 'ink',
+  caps = false,
+  className,
+  type = 'button',
+  ...rest
+}: StyleProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   return <button type={type} className={linkClass(tone, caps, className)} {...rest} />
 }

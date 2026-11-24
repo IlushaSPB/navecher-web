@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 import { NavLink } from 'react-router-dom'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import type { IconProps } from '../Icon/icons'
 import s from './BottomNav.module.css'
 

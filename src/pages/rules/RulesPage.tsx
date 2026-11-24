@@ -29,7 +29,9 @@ export function RulesPage() {
         <Rule key={rule.title} num={i + 1} rule={rule} />
       ))}
       <div className={s.footer}>
-        <Note>На время теста сервис не берёт комиссию. Что-то пошло не так — напишите нам, ответим в течение 24 часов.</Note>
+        <Note>
+          На время теста сервис не берёт комиссию. Что-то пошло не так — напишите нам, ответим в течение 24 часов.
+        </Note>
         {bot && (
           <TextLink to={`https://t.me/${bot}`} className={s.support}>
             Написать в поддержку

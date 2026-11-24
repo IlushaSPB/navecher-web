@@ -30,7 +30,11 @@ export function FeedResults({ feed, hasDate, hrefTo }: FeedResultsProps) {
       <ul className={s.grid}>
         {items.map((item) => (
           <li key={item.id}>
-            <ItemCard item={item} to={hrefTo(`/items/${item.id}`)} action={<FavoriteButton id={item.id} iconSize={18} />} />
+            <ItemCard
+              item={item}
+              to={hrefTo(`/items/${item.id}`)}
+              action={<FavoriteButton id={item.id} iconSize={18} />}
+            />
           </li>
         ))}
       </ul>

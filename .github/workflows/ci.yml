@@ -1,0 +1,41 @@
+name: ci
+
+# Проверки на каждый PR и push в рабочие ветки; main проверяет deploy.yml перед выкладкой.
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+
+# Новый push в ту же ветку отменяет устаревший прогон.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Format
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build

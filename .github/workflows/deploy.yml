@@ -21,10 +21,17 @@ jobs:
           node-version: '22'
           cache: npm
 
-      - name: Typecheck and build
+      - name: Install
+        run: npm ci
+
+      # Сломанный линтер или тесты не выкладываем.
+      - name: Lint and test
         run: |
-          npm ci
-          npm run build
+          npm run lint
+          npm test
+
+      - name: Typecheck and build
+        run: npm run build
 
       # Ключ хоста — из секрета (ssh-keyscan -H <host> один раз), а не принимается вслепую на каждом прогоне.
       - name: Setup SSH

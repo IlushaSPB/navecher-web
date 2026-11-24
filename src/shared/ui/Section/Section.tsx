@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import { Eyebrow } from '../Typography/Typography'
 import s from './Section.module.css'
 

@@ -5,21 +5,50 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "dev:mock": "vite --mode mock",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "api:types": "openapi-typescript ../navecher-api/api/openapi.yaml -o src/shared/api/schema.gen.ts"
   },
   "dependencies": {
-    "@fontsource-variable/inter-tight": "^5.3.0",
+    "@fontsource-variable/inter-tight": "5.3.0",
     "@fontsource/jost": "5.2.8",
+    "@tanstack/react-query": "5.108.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.28.0"
   },
   "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/jest-dom": "6.10.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.13",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "4.3.3",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "17.14.0",
+    "jsdom": "26.1.0",
+    "msw": "2.15.0",
+    "openapi-typescript": "7.13.0",
+    "prettier": "3.10.1",
     "typescript": "5.6.3",
-    "vite": "5.4.10"
+    "typescript-eslint": "8.74.0",
+    "vite": "5.4.10",
+    "vitest": "3.2.7"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

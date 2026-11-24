@@ -1,5 +1,12 @@
-import { createContext, useContext, useId, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react'
-import { cx } from '../../lib/cx'
+import {
+  createContext,
+  useContext,
+  useId,
+  type InputHTMLAttributes,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+} from 'react'
+import { cx } from '@/shared/lib/cx'
 import s from './Field.module.css'
 
 type FieldIds = { id: string; hintId?: string }
@@ -43,13 +50,26 @@ export function Field({ label, hint, className, children }: FieldProps) {
 type TextInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & { size?: 'm' | 'l' }
 
 // TextInput — однострочное поле с нижней линией: m — формы (14px), l — сообщение (16px).
-export function TextInput({ size = 'm', className, id, 'aria-describedby': describedBy, type = 'text', ...rest }: TextInputProps) {
+export function TextInput({
+  size = 'm',
+  className,
+  id,
+  'aria-describedby': describedBy,
+  type = 'text',
+  ...rest
+}: TextInputProps) {
   const ids = useFieldIds(id, describedBy)
   return <input type={type} className={cx(s.control, s[size], className)} {...ids} {...rest} />
 }
 
 // TextArea — многострочное поле с нижней линией.
-export function TextArea({ className, id, 'aria-describedby': describedBy, rows = 3, ...rest }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export function TextArea({
+  className,
+  id,
+  'aria-describedby': describedBy,
+  rows = 3,
+  ...rest
+}: TextareaHTMLAttributes<HTMLTextAreaElement>) {
   const ids = useFieldIds(id, describedBy)
   return <textarea rows={rows} className={cx(s.control, s.area, className)} {...ids} {...rest} />
 }

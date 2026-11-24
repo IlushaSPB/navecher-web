@@ -1,7 +1,8 @@
-import { request } from '../http'
-import type { Session, TelegramWidgetUser, User } from '../types'
+import { request, type Session, type TelegramWidgetUser, type User } from '@/shared/api'
 
-export const fetchMe = () => request<User>('/api/me')
+// Запросы сессии — обычные функции без React.
+
+export const fetchMe = (signal?: AbortSignal) => request<User>('/api/me', { signal })
 
 export const loginWidget = (user: TelegramWidgetUser) =>
   request<Session>('/api/auth/telegram/widget', { method: 'POST', body: user })

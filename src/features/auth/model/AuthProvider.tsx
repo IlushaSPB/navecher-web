@@ -1,61 +1,75 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { authApi, type Session, type TelegramWidgetUser, type User } from '@/shared/api'
+import { sessionApi, sessionKeys, useMe } from '@/entities/session'
+import type { Session, TelegramWidgetUser, User } from '@/shared/api'
 import { getMiniApp } from '@/shared/telegram'
 import { AuthContext, type AuthContextValue, type AuthStatus } from './AuthContext'
-import { authErrorText, closeSession, openSession, restoreSession } from './session'
-
-type State = { status: AuthStatus; user: User | null; error: string | null }
-
-const anonymous = (error: string | null = null): State => ({ status: 'anonymous', user: null, error })
-const signedIn = (user: User): State => ({ status: 'authenticated', user, error: null })
+import { authErrorText, closeSession, openSession } from './session'
 
 // тестовый пользователь для входа без Telegram (DEV_AUTH на сервере)
 const DEV_USER = { tgId: 1001, firstName: 'Тест' }
 
-// AuthProvider — сессия пользователя. В мини-аппе входит сам по initData, на сайте — восстанавливает по /api/me.
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<State>({ status: 'loading', user: null, error: null })
+const ignore = () => undefined
 
-  const signIn = useCallback(async (login: () => Promise<Session>) => {
-    setState((s) => ({ ...s, status: 'loading', error: null }))
-    try {
-      setState(signedIn(await openSession(login)))
-    } catch (e) {
-      setState(anonymous(authErrorText(e)))
-    }
-  }, [])
+type StatusInput = { user: User | null | undefined; settled: boolean; busy: boolean }
+
+// пока сессия не выяснена или идёт вход/выход — loading
+const authStatus = ({ user, settled, busy }: StatusInput): AuthStatus =>
+  busy || !settled ? 'loading' : user ? 'authenticated' : 'anonymous'
+
+// AuthProvider — сессия пользователя. В мини-аппе входит сам по initData, на сайте — восстанавливает по /api/me.
+// Пользователь живёт в кэше ['me']: вход и выход кладут туда результат и сбрасывают ключ.
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const queryClient = useQueryClient()
+  const [miniApp] = useState(getMiniApp)
+  const me = useMe({ enabled: !miniApp })
+
+  const applyUser = useCallback(
+    (user: User | null) => {
+      queryClient.setQueryData(sessionKeys.me, user)
+      void queryClient.invalidateQueries({ queryKey: sessionKeys.me })
+    },
+    [queryClient],
+  )
+
+  const login = useMutation({ mutationFn: openSession, onSuccess: applyUser })
+  const logout = useMutation({ mutationFn: closeSession, onSettled: () => applyUser(null) })
+  const { mutateAsync: loginAsync, reset: resetLogin } = login
+
+  // ошибка входа остаётся в login.error — наружу промис всегда успешный
+  const signIn = useCallback((fn: () => Promise<Session>) => loginAsync(fn).then(ignore, ignore), [loginAsync])
 
   const loginWithMiniApp = useCallback(async () => {
-    const app = getMiniApp()
-    if (app) await signIn(() => authApi.loginWebApp(app.initData))
-  }, [signIn])
+    if (miniApp) await signIn(() => sessionApi.loginWebApp(miniApp.initData))
+  }, [miniApp, signIn])
 
   useEffect(() => {
-    if (getMiniApp()) {
-      void loginWithMiniApp()
-      return
-    }
-    let cancelled = false
-    restoreSession()
-      .then((user) => !cancelled && setState(user ? signedIn(user) : anonymous()))
-      .catch(() => !cancelled && setState(anonymous()))
-    return () => {
-      cancelled = true
-    }
-  }, [loginWithMiniApp])
+    if (miniApp) void loginWithMiniApp()
+  }, [miniApp, loginWithMiniApp])
+
+  const status = authStatus({
+    user: me.data,
+    settled: me.data !== undefined || me.isError || login.isError,
+    busy: login.isPending || logout.isPending,
+  })
+  const user = me.data ?? null
+  const error = login.error ? authErrorText(login.error) : null
+  const { mutateAsync: logoutAsync } = logout
 
   const value = useMemo<AuthContextValue>(
     () => ({
-      ...state,
+      status,
+      user,
+      error,
       loginWithMiniApp,
-      loginWithWidget: (user: TelegramWidgetUser) => signIn(() => authApi.loginWidget(user)),
-      loginDev: () => signIn(() => authApi.loginDev(DEV_USER.tgId, DEV_USER.firstName)),
+      loginWithWidget: (u: TelegramWidgetUser) => signIn(() => sessionApi.loginWidget(u)),
+      loginDev: () => signIn(() => sessionApi.loginDev(DEV_USER.tgId, DEV_USER.firstName)),
       logout: async () => {
-        await closeSession()
-        setState(anonymous())
+        resetLogin()
+        await logoutAsync()
       },
     }),
-    [state, signIn, loginWithMiniApp],
+    [status, user, error, loginWithMiniApp, signIn, resetLogin, logoutAsync],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

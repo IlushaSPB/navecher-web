@@ -1,1 +1,3 @@
-export { ConfigProvider, useConfig, useToday } from './ConfigProvider'
+export { useConfig, useToday } from './useConfig'
+export { fetchConfig } from './api'
+export { configKeys } from './keys'

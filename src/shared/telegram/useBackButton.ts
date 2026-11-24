@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLatest } from '../lib/useLatest'
+import { useLatest } from '@/shared/lib/useLatest'
 import { getMiniApp } from './webApp'
 
 // useTelegramBackButton — показывает нативную кнопку «Назад» Telegram, пока компонент на экране.

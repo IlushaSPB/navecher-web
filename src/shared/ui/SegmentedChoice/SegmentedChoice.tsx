@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './SegmentedChoice.module.css'
 
 export type ChoiceOption<T extends string | number> = {
@@ -17,7 +17,13 @@ type SegmentedChoiceProps<T extends string | number> = {
 }
 
 // SegmentedChoice — сетка ячеек с одним выбранным вариантом: размер, состояние, цена.
-export function SegmentedChoice<T extends string | number>({ label, options, value, onChange, columns }: SegmentedChoiceProps<T>) {
+export function SegmentedChoice<T extends string | number>({
+  label,
+  options,
+  value,
+  onChange,
+  columns,
+}: SegmentedChoiceProps<T>) {
   const style = { '--columns': columns ?? options.length } as CSSProperties
   return (
     <div role="group" aria-label={label} className={s.grid} style={style}>

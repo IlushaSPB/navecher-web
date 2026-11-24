@@ -1,0 +1,7 @@
+dist/
+coverage/
+node_modules/
+package-lock.json
+tsconfig.tsbuildinfo
+public/mockServiceWorker.js
+src/shared/api/schema.gen.ts

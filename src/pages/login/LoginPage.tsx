@@ -50,7 +50,8 @@ export function LoginPage() {
           )}
         </div>
         <Note center>
-          Входя, вы принимаете <Link to="/rules" className={s.inlineLink}>
+          Входя, вы принимаете{' '}
+          <Link to="/rules" className={s.inlineLink}>
             правила аренды
           </Link>
         </Note>

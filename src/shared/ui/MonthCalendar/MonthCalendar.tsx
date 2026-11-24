@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { cx } from '../../lib/cx'
-import { addMonths, monthGrid, monthOf, type IsoDate, type IsoMonth, type MonthCell } from '../../lib/date'
-import { dateLong, monthTitle, WEEKDAYS_SHORT } from '../../lib/format'
+import { cx } from '@/shared/lib/cx'
+import { addMonths, monthGrid, monthOf, type IsoDate, type IsoMonth, type MonthCell } from '@/shared/lib/date'
+import { dateLong, monthTitle, WEEKDAYS_SHORT } from '@/shared/lib/format'
 import { ChevronLeftIcon, ChevronRightIcon } from '../Icon/icons'
 import { Eyebrow } from '../Typography/Typography'
 import s from './MonthCalendar.module.css'
@@ -55,7 +55,12 @@ export function MonthCalendar({
           <div className={s.month} aria-live="polite">
             {label}
           </div>
-          <button type="button" className={s.arrow} aria-label="Следующий месяц" onClick={() => onMonthChange(addMonths(month, 1))}>
+          <button
+            type="button"
+            className={s.arrow}
+            aria-label="Следующий месяц"
+            onClick={() => onMonthChange(addMonths(month, 1))}
+          >
             <ChevronRightIcon />
           </button>
         </div>
@@ -97,7 +102,9 @@ function Day({ cell, past, selected, mark, onSelect }: DayProps) {
       aria-label={busy ? `${dateLong(cell.date)}, занято` : dateLong(cell.date)}
       onClick={() => onSelect(cell.date)}
     >
-      <span className={cx(s.mark, faded && s.faded, tone && s[tone], selected && !disabled && s.selected)}>{cell.day}</span>
+      <span className={cx(s.mark, faded && s.faded, tone && s[tone], selected && !disabled && s.selected)}>
+        {cell.day}
+      </span>
     </button>
   )
 }

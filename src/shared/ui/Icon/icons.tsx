@@ -42,7 +42,11 @@ export const InfoIcon = svg(
     <path d="M10 9v5M10 6.3v.2" />
   </>,
 )
-export const HeartIcon = svg(20, 20, <path d="M10 17S3 12.5 3 7.8A3.8 3.8 0 0 1 10 5.6 3.8 3.8 0 0 1 17 7.8C17 12.5 10 17 10 17z" />)
+export const HeartIcon = svg(
+  20,
+  20,
+  <path d="M10 17S3 12.5 3 7.8A3.8 3.8 0 0 1 10 5.6 3.8 3.8 0 0 1 17 7.8C17 12.5 10 17 10 17z" />,
+)
 export const SettingsIcon = svg(
   20,
   20,
@@ -81,8 +85,16 @@ export const ChevronLeftIcon = svg(14, 14, <path d="M9 2L4 7l5 5" />)
 export const ChevronRightIcon = svg(14, 14, <path d="M5 2l5 5-5 5" />)
 
 // нижняя навигация: рисунок 22×22, показ 20×20
-export const FeedIcon = svg(22, 20, <path d="M4 3.5h5.5v7H4zM12.5 3.5H18v4h-5.5zM12.5 10.5H18v8h-5.5zM4 13.5h5.5v5H4z" />)
-export const FavoritesIcon = svg(22, 20, <path d="M11 18.5S3.5 13.8 3.5 8.7A4 4 0 0 1 11 6.5a4 4 0 0 1 7.5 2.2c0 5.1-7.5 9.8-7.5 9.8z" />)
+export const FeedIcon = svg(
+  22,
+  20,
+  <path d="M4 3.5h5.5v7H4zM12.5 3.5H18v4h-5.5zM12.5 10.5H18v8h-5.5zM4 13.5h5.5v5H4z" />,
+)
+export const FavoritesIcon = svg(
+  22,
+  20,
+  <path d="M11 18.5S3.5 13.8 3.5 8.7A4 4 0 0 1 11 6.5a4 4 0 0 1 7.5 2.2c0 5.1-7.5 9.8-7.5 9.8z" />,
+)
 export const PlaceIcon = svg(22, 20, <path d="M11 4v14M4 11h14" />)
 export const ChatsIcon = svg(22, 20, <path d="M3.5 5h15v10.5H9L5 19v-3.5H3.5z" />)
 export const ProfileIcon = svg(

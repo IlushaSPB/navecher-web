@@ -1,4 +1,4 @@
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './Skeleton.module.css'
 
 // Skeleton — пудровая заготовка на месте ещё не загруженного блока; размеры задаёт className.

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './Photo.module.css'
 
 type PhotoProps = {

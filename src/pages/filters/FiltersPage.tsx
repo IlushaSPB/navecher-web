@@ -90,7 +90,11 @@ export function FiltersPage() {
         </Section>
       )}
       <ActionBar divider>
-        <Button aria-busy={pending} disabled={total === 0} onClick={() => navigate(hrefTo('/', draft), { replace: true })}>
+        <Button
+          aria-busy={pending}
+          disabled={total === 0}
+          onClick={() => navigate(hrefTo('/', draft), { replace: true })}
+        >
           {showLabel(total)}
         </Button>
       </ActionBar>

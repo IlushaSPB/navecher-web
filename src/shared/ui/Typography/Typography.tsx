@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from '../../lib/cx'
+import { cx } from '@/shared/lib/cx'
 import s from './Typography.module.css'
 
 type Tone = 'ink' | 'muted' | 'accent'

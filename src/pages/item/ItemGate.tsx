@@ -11,10 +11,16 @@ type ItemGateProps = {
 }
 
 // ItemGate — грузит платье из адреса и показывает экран, только когда оно есть.
-export function ItemGate({ title, skeleton, children }: ItemGateProps) {
-  const { data, loading, error, reload } = useItem(useItemId())
-  if (loading) return <>{skeleton}</>
-  if (error) return <ItemFallback title={title} onRetry={reload} />
+export function ItemGate({ title, ...rest }: ItemGateProps) {
+  const id = useItemId()
+  if (id === null) return <ItemFallback title={title} />
+  return <ItemLoader id={id} title={title} {...rest} />
+}
+
+function ItemLoader({ id, title, skeleton, children }: ItemGateProps & { id: number }) {
+  const { data, isPending, error, refetch } = useItem(id)
+  if (isPending) return <>{skeleton}</>
+  if (error) return <ItemFallback title={title} onRetry={() => void refetch()} />
   if (!data) return <ItemFallback title={title} />
   return <>{children(data)}</>
 }

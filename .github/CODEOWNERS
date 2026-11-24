@@ -1,0 +1,33 @@
+# Кого GitHub зовёт ревьюером PR по путям. Зоны — в CLAUDE.md. Последнее совпадение важнее.
+*                                   @IlushaSPB @rostslove
+
+/src/features/auth/                 @IlushaSPB
+/src/features/catalog-filters/      @IlushaSPB
+/src/features/favorites/            @IlushaSPB
+/src/entities/item/                 @IlushaSPB
+/src/entities/session/              @IlushaSPB
+/src/pages/feed/                    @IlushaSPB
+/src/pages/filters/                 @IlushaSPB
+/src/pages/item/                    @IlushaSPB
+/src/pages/favorites/               @IlushaSPB
+/src/pages/login/                   @IlushaSPB
+/src/pages/place/                   @IlushaSPB
+/src/pages/profile/                 @IlushaSPB
+/src/pages/rules/                   @IlushaSPB
+/src/shared/telegram/               @IlushaSPB
+
+/src/pages/item/ItemRequestPage.tsx @rostslove
+/src/pages/deal/                    @rostslove
+/src/pages/request/                 @rostslove
+/src/pages/chats/                   @rostslove
+/src/entities/deal/                 @rostslove
+/src/entities/message/              @rostslove
+/src/features/chat/                 @rostslove
+
+# Общая зона — смотрят оба
+/src/shared/ui/                     @IlushaSPB @rostslove
+/src/shared/api/                    @IlushaSPB @rostslove
+/src/app/                           @IlushaSPB @rostslove
+/eslint/                            @IlushaSPB @rostslove
+/CLAUDE.md                          @IlushaSPB @rostslove
+/.github/                           @IlushaSPB @rostslove

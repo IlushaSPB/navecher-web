@@ -1,14 +1,15 @@
 import { RouterProvider } from 'react-router-dom'
 import { AuthProvider } from '@/features/auth'
-import { ConfigProvider } from '@/shared/config'
+import { PROVIDER_FUTURE } from '@/shared/lib/routerFuture'
+import { QueryProvider } from './providers/QueryProvider'
 import { router } from './router'
 
 export function App() {
   return (
-    <ConfigProvider>
+    <QueryProvider>
       <AuthProvider>
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <RouterProvider router={router} future={PROVIDER_FUTURE} />
       </AuthProvider>
-    </ConfigProvider>
+    </QueryProvider>
   )
 }
