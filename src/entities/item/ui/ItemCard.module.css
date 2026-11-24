@@ -1,0 +1,86 @@
+.card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.photoLink {
+  position: relative;
+  display: block;
+}
+
+.photoLink:focus-visible {
+  outline-offset: -4px;
+}
+
+.photo {
+  aspect-ratio: 3 / 4;
+}
+
+.strokes {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--space-2);
+}
+
+.body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--gutter) 0;
+}
+
+.top {
+  height: var(--lh-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  composes: capsStrong from '../../../shared/styles/typography.module.css';
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* касание 44px, а строка остаётся 16px */
+.action {
+  flex: none;
+  margin: -14px -14px -14px 0;
+}
+
+.title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--c-muted);
+}
+
+.price {
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--c-muted);
+}
+
+.line {
+  height: var(--lh-12);
+}
+
+.lineShort {
+  composes: line;
+  width: 40%;
+}
+
+.lineLong {
+  composes: line;
+  width: 85%;
+}
+
+.lineMid {
+  composes: line;
+  width: 60%;
+}

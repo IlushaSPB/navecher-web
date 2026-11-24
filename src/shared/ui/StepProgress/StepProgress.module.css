@@ -1,0 +1,17 @@
+.progress {
+  flex: none;
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--space-1);
+  height: 2px;
+  margin: 0 var(--gutter);
+}
+
+.segment {
+  background: var(--c-hairline);
+}
+
+.done {
+  background: var(--c-ink);
+}

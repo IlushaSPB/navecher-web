@@ -1,0 +1,40 @@
+/* надпись капсом 11/500/.08em */
+.eyebrow {
+  composes: capsStrong from '../../styles/typography.module.css';
+}
+
+.ink {
+  color: var(--c-ink);
+}
+
+.muted {
+  color: var(--c-muted);
+}
+
+.accent {
+  color: var(--c-berry);
+}
+
+/* заголовок Jost капсом */
+.title {
+  composes: display from '../../styles/typography.module.css';
+}
+
+.m {
+  font-size: var(--fs-22);
+  line-height: var(--lh-22);
+}
+
+.l {
+  font-size: var(--fs-28);
+  line-height: var(--lh-28);
+}
+
+/* поясняющий текст 12px */
+.note {
+  color: var(--c-muted);
+}
+
+.center {
+  text-align: center;
+}

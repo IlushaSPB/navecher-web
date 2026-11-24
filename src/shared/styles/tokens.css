@@ -1,0 +1,57 @@
+/* Токены дизайна NAVECHER — единственный источник цветов, шрифтов и размеров. */
+:root {
+  /* цвета */
+  --c-ground: #f2efe9;
+  --c-ink: #141012;
+  --c-powder: #f3e4e8;
+  --c-blush: #ebc3d0;
+  --c-berry: #8c2e52;
+  --c-muted: #5e5357;
+  --c-hairline: #cfc8bc;
+
+  /* шрифты: Jost — знак, заголовки капсом, номера шагов; Inter Tight — всё остальное */
+  --font-display: 'Jost', system-ui, sans-serif;
+  --font-text: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;
+
+  /* шкала: 11/12/14/16/18/22/28 */
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --lh-11: 12px;
+  --lh-12: 16px;
+  --lh-14: 20px;
+  --lh-16: 20px;
+  --lh-18: 24px;
+  --lh-22: 26px;
+  --lh-28: 32px;
+
+  --tracking-label: 0.08em;
+  --tracking-display: 0.04em;
+  --tracking-wordmark: 0.16em;
+
+  /* отступы */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --gutter: var(--space-4);
+
+  /* размеры */
+  --tap: 44px;
+  --button-h: 54px;
+  --button-h-secondary: 48px;
+  --header-h: 52px;
+  --header-h-showcase: 56px;
+  --nav-h: 56px;
+  --column-max: 480px;
+
+  --hairline: 1px solid var(--c-hairline);
+  --stroke: 1px solid var(--c-ink);
+}

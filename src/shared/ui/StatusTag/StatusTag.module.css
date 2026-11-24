@@ -1,0 +1,35 @@
+.tag {
+  flex: none;
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid currentColor;
+  font-size: 10px;
+  line-height: var(--lh-11);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* активная сделка, подтверждено */
+.accent {
+  color: var(--c-berry);
+}
+
+/* завершена */
+.ink {
+  color: var(--c-ink);
+}
+
+/* отменена */
+.muted {
+  border-color: var(--c-hairline);
+  color: var(--c-muted);
+}
+
+/* метка на фото: «Обложка», «Ткань» */
+.solid {
+  border-color: var(--c-ink);
+  background: var(--c-ink);
+  color: var(--c-ground);
+}

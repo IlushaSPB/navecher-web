@@ -1,0 +1,23 @@
+/* знак NAVECHER: разрядка .16em, пары A–V и V–E поджаты */
+.wordmark {
+  display: inline-block;
+  padding-left: var(--tracking-wordmark); /* уравновешивает разрядку после последней буквы */
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-wordmark);
+  white-space: nowrap;
+}
+
+.kern {
+  margin-left: -0.035em;
+}
+
+.m {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.l {
+  font-size: var(--fs-28);
+  line-height: var(--lh-28);
+}

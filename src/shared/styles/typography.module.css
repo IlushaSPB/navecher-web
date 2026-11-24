@@ -1,0 +1,23 @@
+/* Общие начертания для composes в модулях компонентов. */
+
+/* надпись капсом 11px, разрядка .08em */
+.caps {
+  font-size: var(--fs-11);
+  line-height: var(--lh-12);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* то же, 500 — ярлыки, вкладки, ячейки */
+.capsStrong {
+  composes: caps;
+  font-weight: 500;
+}
+
+/* Jost капсом — заголовки экранов */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}

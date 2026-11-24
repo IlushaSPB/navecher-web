@@ -1,0 +1,41 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--gutter) 0;
+}
+
+/* между крупными блоками (фильтры) — 40px */
+.loose {
+  padding-top: var(--space-10);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.aside {
+  font-size: var(--fs-14);
+  line-height: var(--lh-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.hairline {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: var(--hairline);
+}
+
+.inset {
+  margin: 0 var(--gutter);
+}
+
+/* пудровая плашка: пояснения, итог, ключевая дата */
+.panel {
+  padding: var(--space-6) var(--gutter);
+  background: var(--c-powder);
+}

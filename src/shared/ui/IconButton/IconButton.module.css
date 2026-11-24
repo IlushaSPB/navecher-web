@@ -1,0 +1,18 @@
+.iconButton {
+  flex: none;
+  width: var(--tap);
+  height: var(--tap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-ink);
+}
+
+@media (hover: hover) {
+  .iconButton:hover {
+    color: var(--c-muted);
+  }
+}

@@ -1,0 +1,23 @@
+/* во всю ширину колонки: между карточками 2px, между рядами 40px */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2px;
+  row-gap: var(--space-10);
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-10) var(--gutter) 0;
+}
+
+.empty {
+  gap: 0;
+  padding-top: var(--space-10);
+}
+
+.emptyTitle {
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+}

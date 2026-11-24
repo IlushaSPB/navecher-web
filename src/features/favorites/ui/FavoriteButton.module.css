@@ -1,0 +1,4 @@
+/* сильнее цвета IconButton независимо от порядка стилей в сборке */
+button.saved {
+  color: var(--c-berry);
+}

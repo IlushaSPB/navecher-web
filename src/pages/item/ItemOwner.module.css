@@ -1,0 +1,4 @@
+.owner {
+  margin: 0 var(--gutter);
+  border-bottom: var(--hairline);
+}

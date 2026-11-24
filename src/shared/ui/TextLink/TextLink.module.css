@@ -1,0 +1,39 @@
+/* подчёркнутый текст-ссылка; вертикальные поля добирают касание до 44px */
+.link {
+  display: inline-block;
+  padding: 14px 0;
+  border: 0;
+  background: none;
+  font-size: var(--fs-12);
+  line-height: var(--lh-12);
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.caps {
+  font-size: var(--fs-11);
+  line-height: var(--lh-12);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.ink {
+  color: var(--c-ink);
+}
+
+.muted {
+  color: var(--c-muted);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--c-muted);
+  }
+
+  .muted:hover {
+    color: var(--c-ink);
+  }
+}

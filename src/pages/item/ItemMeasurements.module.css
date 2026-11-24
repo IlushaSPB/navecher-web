@@ -1,0 +1,31 @@
+.block {
+  margin: var(--space-4) var(--gutter) 0;
+  padding: var(--space-3) 0;
+  border-top: var(--hairline);
+  border-bottom: var(--hairline);
+}
+
+.grid {
+  composes: block;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  font-variant-numeric: tabular-nums;
+}
+
+/* число над подписью; в разметке подпись первая — так требует dl */
+.cell {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
+.value {
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+}
+
+.label {
+  composes: caps from '../../shared/styles/typography.module.css';
+  color: var(--c-muted);
+}

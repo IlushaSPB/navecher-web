@@ -1,0 +1,14 @@
+.pending {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10) var(--gutter);
+}
+
+/* виджет Telegram — iframe фиксированной ширины, центрируем */
+.widget {
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+}
